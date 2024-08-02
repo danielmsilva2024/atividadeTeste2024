@@ -1,0 +1,47 @@
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+
+//Criando a conexão para criar o banco de dados 
+$conn= new mysqli($servername,$username,$password);
+
+//Verificando a conexão 
+if ($conn ->connect_error){
+    die("Connect failed: ".$conn->connect_error);
+}
+echo "Connected successfully". PHP_EOL;
+
+//Criando o banco de Dados
+$sql="CREATE DATABASE IF NOT EXISTS myDatabase";
+if($conn->query($sql)==TRUE){
+    echo "Database created successfully". PHP_EOL;
+}else{
+    echo "Error creating database: ". $conn ->error . PHP_EOL;
+}
+
+$conn->close();
+
+//Criando a conexão para criar a tabela
+$mysqli= new mysqli($servername,$username,$password,"myDatabase");
+
+//Verificando a conexão 
+if ($mysqli->connect_errno){
+    echo "Failed to connect to MySQL:" . $mysqli->conncect_error;
+    exit();
+}
+
+//Criando a Tabela Users
+$sql="CREATE TABLE IF NOT EXISTS Users (
+id INT AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(50) NOT NULL,
+email VARCHAR(50) NOT NULL,
+reg_date TIMESTAMP
+)";
+
+if ($mysqli->query($sql)===TRUE){
+    echo "Table Users created sucessfully" . PHP_EOL;
+}else{
+    echo "Error creating table: ".$mysqli->error. PHP_EOL;
+}
+?> 
